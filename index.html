@@ -1,141 +1,698 @@
-<!DOCTYPE html>
 <html>
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Processing Payment</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest' };</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet">
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        inter: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        'brand-dark-bg': '#1e2027',
-                        'brand-primary': '#a0a7f7',
-                        'brand-accent': '#6c77d9',
-                    },
-                }
-            }
+      window.FontAwesomeConfig = {
+        autoReplaceSvg: 'nest'
+      };
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script>
+      tailwind.config = {
+        theme:
+        {
+          extend:
+          {
+            fontFamily:
+            {
+              inter: ['Inter', 'sans-serif'],
+            },
+            colors:
+            {
+              'brand-dark-bg': '#1e2027',
+              'brand-primary': '#a0a7f7',
+              'brand-accent': '#6c77d9',
+            },
+          }
         }
+      }
     </script>
     <style>
-        ::-webkit-scrollbar { display: none;}
-        @keyframes pulse-ring {
-            0% { transform: scale(0.8); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.5; }
-            100% { transform: scale(0.8); opacity: 1; }
+      ::-webkit-scrollbar
+      {
+        display: none;
+      }
+
+      @keyframes pulse-ring
+      {
+        0%
+        {
+          transform: scale(0.8);
+          opacity: 1;
         }
-        .animate-pulse-ring {
-            animation: pulse-ring 2s ease-in-out infinite;
+
+        50%
+        {
+          transform: scale(1.2);
+          opacity: 0.5;
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+
+        100%
+        {
+          transform: scale(0.8);
+          opacity: 1;
         }
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
+      }
+
+      .animate-pulse-ring
+      {
+        animation: pulse-ring 2s ease-in-out infinite;
+      }
+
+      @keyframes float
+      {
+
+        0%,
+        100%
+        {
+          transform: translateY(0px);
         }
-        @keyframes glow {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+
+        50%
+        {
+          transform: translateY(-20px);
         }
-        .animate-glow {
-            animation: glow 2s ease-in-out infinite;
+      }
+
+      .animate-float
+      {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes glow
+      {
+
+        0%,
+        100%
+        {
+          opacity: 0.5;
         }
-        #background-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
+
+        50%
+        {
+          opacity: 1;
         }
-        .video-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(30, 32, 39, 0.85), rgba(30, 32, 39, 0.75), rgba(30, 32, 39, 0.85));
-            backdrop-filter: blur(2px);
+      }
+
+      .animate-glow
+      {
+        animation: glow 2s ease-in-out infinite;
+      }
+
+      @keyframes scanline
+      {
+        0%
+        {
+          transform: translateY(-100%);
         }
+
+        100%
+        {
+          transform: translateY(100%);
+        }
+      }
+
+      .animate-scanline
+      {
+        animation: scanline 3s linear infinite;
+      }
+
+      @keyframes glitch
+      {
+
+        0%,
+        100%
+        {
+          transform: translate(0);
+        }
+
+        20%
+        {
+          transform: translate(-2px, 2px);
+        }
+
+        40%
+        {
+          transform: translate(-2px, -2px);
+        }
+
+        60%
+        {
+          transform: translate(2px, 2px);
+        }
+
+        80%
+        {
+          transform: translate(2px, -2px);
+        }
+      }
+
+      .animate-glitch
+      {
+        animation: glitch 0.5s ease-in-out infinite;
+      }
+
+      @keyframes flicker
+      {
+
+        0%,
+        100%
+        {
+          opacity: 1;
+        }
+
+        50%
+        {
+          opacity: 0.8;
+        }
+
+        75%
+        {
+          opacity: 0.9;
+        }
+      }
+
+      .animate-flicker
+      {
+        animation: flicker 0.15s ease-in-out infinite;
+      }
+
+      @keyframes rotate-slow
+      {
+        from
+        {
+          transform: rotate(0deg);
+        }
+
+        to
+        {
+          transform: rotate(360deg);
+        }
+      }
+
+      .animate-rotate-slow
+      {
+        animation: rotate-slow 20s linear infinite;
+      }
+
+      @keyframes rotate-reverse
+      {
+        from
+        {
+          transform: rotate(360deg);
+        }
+
+        to
+        {
+          transform: rotate(0deg);
+        }
+      }
+
+      .animate-rotate-reverse
+      {
+        animation: rotate-reverse 15s linear infinite;
+      }
+
+      @keyframes particle-float
+      {
+
+        0%,
+        100%
+        {
+          transform: translate(0, 0);
+          opacity: 0;
+        }
+
+        10%
+        {
+          opacity: 1;
+        }
+
+        90%
+        {
+          opacity: 1;
+        }
+
+        100%
+        {
+          transform: translate(var(--tx), var(--ty));
+          opacity: 0;
+        }
+      }
+
+      .animate-particle
+      {
+        animation: particle-float var(--duration) ease-in-out infinite;
+      }
+
+      @keyframes chromatic
+      {
+        0%
+        {
+          text-shadow: 2px 0 0 rgba(255, 0, 0, 0.5), -2px 0 0 rgba(0, 255, 255, 0.5);
+        }
+
+        50%
+        {
+          text-shadow: -2px 0 0 rgba(255, 0, 0, 0.5), 2px 0 0 rgba(0, 255, 255, 0.5);
+        }
+
+        100%
+        {
+          text-shadow: 2px 0 0 rgba(255, 0, 0, 0.5), -2px 0 0 rgba(0, 255, 255, 0.5);
+        }
+      }
+
+      .animate-chromatic
+      {
+        animation: chromatic 2s ease-in-out infinite;
+      }
+
+      @keyframes grid-pulse
+      {
+
+        0%,
+        100%
+        {
+          opacity: 0.1;
+        }
+
+        50%
+        {
+          opacity: 0.3;
+        }
+      }
+
+      .animate-grid-pulse
+      {
+        animation: grid-pulse 3s ease-in-out infinite;
+      }
+
+      @keyframes slide-up
+      {
+        0%
+        {
+          transform: translateY(100%);
+          opacity: 0;
+        }
+
+        100%
+        {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .animate-slide-up
+      {
+        animation: slide-up 0.8s ease-out forwards;
+      }
+
+      #background-video
+      {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+      }
+
+      .video-overlay
+      {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(30, 32, 39, 0.88), rgba(30, 32, 39, 0.82), rgba(30, 32, 39, 0.88));
+        backdrop-filter: blur(3px);
+      }
+
+      .grid-bg
+      {
+        background-image:
+          linear-gradient(rgba(160, 167, 247, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(160, 167, 247, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+
+      .hologram-effect
+      {
+        background: linear-gradient(135deg,
+            rgba(160, 167, 247, 0.1) 0%,
+            rgba(108, 119, 217, 0.2) 25%,
+            rgba(160, 167, 247, 0.1) 50%,
+            rgba(108, 119, 217, 0.2) 75%,
+            rgba(160, 167, 247, 0.1) 100%);
+        background-size: 200% 200%;
+        animation: hologram-shift 3s ease-in-out infinite;
+      }
+
+      @keyframes hologram-shift
+      {
+
+        0%,
+        100%
+        {
+          background-position: 0% 50%;
+        }
+
+        50%
+        {
+          background-position: 100% 50%;
+        }
+      }
+
+      .neon-glow
+      {
+        box-shadow:
+          0 0 10px rgba(160, 167, 247, 0.5),
+          0 0 20px rgba(160, 167, 247, 0.3),
+          0 0 30px rgba(108, 119, 217, 0.2),
+          inset 0 0 10px rgba(160, 167, 247, 0.1);
+      }
+
+      .text-glow
+      {
+        text-shadow:
+          0 0 10px rgba(160, 167, 247, 0.8),
+          0 0 20px rgba(160, 167, 247, 0.5),
+          0 0 30px rgba(108, 119, 217, 0.3);
+      }
     </style>
-</head>
-<body class="bg-brand-dark-bg font-inter text-white antialiased">
-    <div id="splash-screen-container" class="flex flex-col items-center justify-center h-[840px] w-full max-w-[375px] mx-auto relative overflow-hidden">
-        
-        <video id="background-video" autoplay loop muted playsinline>
-            <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
-        </video>
-        
-        <div class="video-overlay"></div>
-        
-        <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/10 via-transparent to-purple-500/10"></div>
-        
-        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-brand-accent/20 rounded-full blur-3xl animate-pulse-ring"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl animate-pulse-ring" style="animation-delay: 1s;"></div>
-        
-        <div id="splash-content" class="relative z-10 flex flex-col items-center justify-center px-8">
-            
-            <div class="mb-12 animate-float">
-                <div class="relative w-32 h-32 mx-auto">
-                    <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/40 to-purple-500/40 rounded-full animate-pulse-ring"></div>
-                    <div class="absolute inset-4 bg-gradient-to-br from-brand-accent/60 to-purple-500/60 rounded-full animate-pulse-ring" style="animation-delay: 0.5s;"></div>
-                    <div class="absolute inset-8 bg-gradient-to-br from-brand-accent to-purple-500 rounded-full flex items-center justify-center shadow-2xl">
-                        <i class="fa-solid fa-spinner fa-spin text-white text-4xl"></i>
-                    </div>
-                </div>
-            </div>
+    <style data-grapesjs-styles="true">
+      #background-video
+      {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+      }
 
-            <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-white mb-4 tracking-tight drop-shadow-lg">Processing Payment</h1>
-                <p class="text-base text-gray-300 leading-relaxed drop-shadow-md">Please wait a moment...</p>
-            </div>
+      #invo7
+      {
+        animation-delay: 1s;
+      }
 
-            <div class="flex gap-2 mb-12">
-                <div class="w-2 h-2 bg-brand-primary rounded-full animate-bounce"></div>
-                <div class="w-2 h-2 bg-brand-primary rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
-                <div class="w-2 h-2 bg-brand-primary rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
-            </div>
+      #if8h2
+      {
+        animation-delay: 0.5s;
+      }
 
-            <div class="w-full max-w-xs">
-                <div class="h-1 bg-gray-800/80 rounded-full overflow-hidden backdrop-blur-sm">
-                    <div class="h-full bg-gradient-to-r from-brand-accent to-purple-500 rounded-full animate-glow" style="width: 60%;"></div>
-                </div>
-            </div>
+      #itsvz
+      {
+        --tx: 50px;
+        --ty: -300px;
+        --duration: 4s;
+        top: 10%;
+        left: 20%;
+      }
 
+      #iw8ai
+      {
+        --tx: -40px;
+        --ty: -350px;
+        --duration: 5s;
+        top: 30%;
+        left: 70%;
+        animation-delay: 1s;
+      }
+
+      #im1g3
+      {
+        --tx: 60px;
+        --ty: -280px;
+        --duration: 4.5s;
+        top: 50%;
+        left: 15%;
+        animation-delay: 2s;
+      }
+
+      #ieza4
+      {
+        --tx: -50px;
+        --ty: -320px;
+        --duration: 5.5s;
+        top: 70%;
+        left: 80%;
+        animation-delay: 0.5s;
+      }
+
+      #iioed
+      {
+        --tx: 45px;
+        --ty: -290px;
+        --duration: 4.8s;
+        top: 20%;
+        left: 50%;
+        animation-delay: 1.5s;
+      }
+
+      #i6g2k
+      {
+        --tx: -55px;
+        --ty: -310px;
+        --duration: 5.2s;
+        top: 60%;
+        left: 30%;
+        animation-delay: 2.5s;
+      }
+
+      #i581g
+      {
+        animation-duration: 25s;
+      }
+
+      #i41cs
+      {
+        animation-delay: 0.5s;
+      }
+
+      #ijg2a
+      {
+        animation-delay: 0.2s;
+      }
+
+      #ibn7m
+      {
+        animation-delay: 0.4s;
+      }
+
+      #iyhr7
+      {
+        width: 60%;
+      }
+
+      #ibaty
+      {
+        animation-delay: 0.3s;
+      }
+    </style>
+  </head>
+
+  <body class="bg-brand-dark-bg font-inter text-white antialiased">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing Payment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous" referrerpolicy="no-referrer">
+    <div id="splash-screen-container"
+      class="flex flex-col items-center justify-center h-[840px] w-full max-w-[375px] mx-auto relative overflow-hidden">
+      <video allowfullscreen="allowfullscreen" id="background-video" autoplay=""
+        loop="" muted="" playsinline="" controls="">
+        <source
+          src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+          type="video/mp4">
+      </video>
+      <div class="video-overlay"></div>
+      <div class="absolute inset-0 grid-bg animate-grid-pulse"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-brand-accent/10 via-transparent to-purple-500/10">
+      </div>
+      <div
+        class="absolute top-1/4 left-1/4 w-64 h-64 bg-brand-accent/20 rounded-full blur-3xl animate-pulse-ring">
+      </div>
+      <div
+        class="absolute bottom-1/4 right-1/4 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl animate-pulse-ring"
+        id="invo7"></div>
+      <div
+        class="absolute top-1/2 left-1/2 w-56 h-56 bg-cyan-500/15 rounded-full blur-3xl animate-pulse-ring"
+        id="if8h2"></div>
+      <div
+        class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-primary to-transparent opacity-50 animate-scanline">
+      </div>
+      <div id="particles-container"
+        class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          class="absolute w-1 h-1 bg-brand-primary rounded-full animate-particle"
+          id="itsvz"></div>
+        <div
+          class="absolute w-1 h-1 bg-purple-400 rounded-full animate-particle"
+          id="iw8ai"></div>
+        <div class="absolute w-1 h-1 bg-cyan-400 rounded-full animate-particle"
+          id="im1g3"></div>
+        <div
+          class="absolute w-1 h-1 bg-brand-accent rounded-full animate-particle"
+          id="ieza4"></div>
+        <div
+          class="absolute w-1 h-1 bg-purple-300 rounded-full animate-particle"
+          id="iioed"></div>
+        <div class="absolute w-1 h-1 bg-cyan-300 rounded-full animate-particle"
+          id="i6g2k"></div>
+      </div>
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 opacity-20">
+        <div
+          class="absolute inset-0 border-2 border-brand-primary/30 rounded-full animate-rotate-slow">
         </div>
-
-        <div id="splash-footer" class="absolute bottom-12 left-0 right-0 px-8 z-10">
-            <div class="text-center">
-                <div class="flex items-center justify-center gap-3 mb-3">
-                    <i class="fa-solid fa-shield-halved text-brand-primary text-sm drop-shadow-lg"></i>
-                    <p class="text-xs text-gray-300 drop-shadow-md">Secure Payment Processing</p>
-                </div>
-                <p class="text-[10px] text-gray-400 drop-shadow-md">
-                    Do not close or refresh this page
-                </p>
-            </div>
+        <div
+          class="absolute inset-8 border-2 border-purple-400/30 rounded-full animate-rotate-reverse">
         </div>
-
+        <div
+          class="absolute inset-16 border-2 border-cyan-400/30 rounded-full animate-rotate-slow"
+          id="i581g"></div>
+      </div>
+      <div id="splash-content"
+        class="relative z-10 flex flex-col items-center justify-center px-8">
+        <div class="mb-12 animate-float">
+          <div class="relative w-32 h-32 mx-auto">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-brand-accent/40 to-purple-500/40 rounded-full animate-pulse-ring neon-glow">
+            </div>
+            <div
+              class="absolute inset-4 bg-gradient-to-br from-brand-accent/60 to-purple-500/60 rounded-full animate-pulse-ring neon-glow"
+              id="i41cs"></div>
+            <div
+              class="absolute inset-8 bg-gradient-to-br from-brand-accent to-purple-500 rounded-full flex items-center justify-center shadow-2xl hologram-effect neon-glow">
+              <i
+                class="fa-solid fa-spinner fa-spin text-white text-4xl animate-flicker"></i>
+            </div>
+            <div
+              class="absolute -inset-2 border border-brand-primary/30 rounded-full animate-rotate-slow">
+            </div>
+            <div
+              class="absolute -inset-4 border border-purple-400/20 rounded-full animate-rotate-reverse">
+            </div>
+          </div>
+        </div>
+        <div class="text-center mb-8 animate-slide-up">
+          <h1
+            class="text-3xl font-bold text-white mb-4 tracking-tight animate-chromatic text-glow">
+            Processing Payment</h1>
+          <p class="text-base text-gray-300 leading-relaxed drop-shadow-md">
+            Please wait a moment...</p>
+        </div>
+        <div class="flex gap-2 mb-12">
+          <div
+            class="w-2 h-2 bg-brand-primary rounded-full animate-bounce neon-glow">
+          </div>
+          <div
+            class="w-2 h-2 bg-purple-400 rounded-full animate-bounce neon-glow"
+            id="ijg2a"></div>
+          <div class="w-2 h-2 bg-cyan-400 rounded-full animate-bounce neon-glow"
+            id="ibn7m"></div>
+        </div>
+        <div class="w-full max-w-xs relative">
+          <div
+            class="h-1 bg-gray-800/80 rounded-full overflow-hidden backdrop-blur-sm border border-brand-primary/20">
+            <div
+              class="h-full bg-gradient-to-r from-brand-accent via-purple-500 to-cyan-400 rounded-full animate-glow neon-glow"
+              id="iyhr7"></div>
+          </div>
+          <div
+            class="absolute -top-1 left-0 w-full h-3 bg-gradient-to-r from-brand-accent/20 via-purple-500/20 to-transparent blur-md">
+          </div>
+        </div>
+        <div class="mt-8 flex gap-4 items-center justify-center">
+          <div
+            class="w-6 h-6 border-2 border-purple-400/40 rounded-full animate-ping">
+          </div>
+        </div>
+      </div>
+      <div id="splash-footer"
+        class="absolute bottom-12 left-0 right-0 px-8 z-10">
+        <div class="text-center">
+          <div class="flex items-center justify-center gap-3 mb-3"><i
+              class="fa-solid fa-shield-halved text-brand-primary text-sm drop-shadow-lg animate-pulse neon-glow"></i>
+            <p class="text-xs text-gray-300 drop-shadow-md">Secure Payment
+              Processing</p>
+          </div>
+          <p class="text-[10px] text-gray-400 drop-shadow-md animate-pulse">
+            Do not close or refresh this page
+          </p>
+        </div>
+      </div>
+      <div
+        class="absolute top-4 left-4 text-[8px] text-brand-primary/40 font-mono tracking-wider animate-flicker">
+        VFX.SYS.V2.1
+      </div>
+      <div
+        class="absolute top-4 right-4 text-[8px] text-purple-400/40 font-mono tracking-wider animate-flicker"
+        id="ibaty">
+        PROC.ACTIVE
+      </div>
     </div>
-
     <script>
-        window.addEventListener('load', function() {
-            const video = document.getElementById('background-video');
-            if (video) {
-                video.playbackRate = 0.75;
-            }
-        });
+      window.addEventListener('load', function()
+      {
+        const video = document.getElementById('background-video');
+        if (video)
+        {
+          video.playbackRate = 0.75;
+        }
+
+        const particlesContainer = document.getElementById(
+          'particles-container');
+        for (let i = 0; i < 15; i++)
+        {
+          const particle = document.createElement('div');
+          particle.className =
+            'absolute w-0.5 h-0.5 bg-brand-primary rounded-full animate-particle';
+          particle.style.cssText = `
+                    --tx: ${Math.random() * 100 - 50}px;
+                    --ty: ${-250 - Math.random() * 150}px;
+                    --duration: ${4 + Math.random() * 3}s;
+                    top: ${Math.random() * 100}%;
+                    left: ${Math.random() * 100}%;
+                    animation-delay: ${Math.random() * 3}s;
+                `;
+          const colors = ['bg-brand-primary', 'bg-purple-400',
+            'bg-cyan-400', 'bg-purple-300', 'bg-cyan-300'
+          ];
+          particle.classList.add(colors[Math.floor(Math.random() * colors
+            .length)]);
+          particlesContainer.appendChild(particle);
+        }
+      });
     </script>
-</body>
+  </body>
+
 </html>
