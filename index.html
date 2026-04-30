@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing Payment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest' };</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-dark-bg': '#1e2027',
+                        'brand-primary': '#a0a7f7',
+                        'brand-accent': '#6c77d9',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { display: none;}
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+            100% { transform: scale(0.8); opacity: 1; }
+        }
+        .animate-pulse-ring {
+            animation: pulse-ring 2s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        .animate-glow {
+            animation: glow 2s ease-in-out infinite;
+        }
+        #background-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(30, 32, 39, 0.85), rgba(30, 32, 39, 0.75), rgba(30, 32, 39, 0.85));
+            backdrop-filter: blur(2px);
+        }
+    </style>
+</head>
+<body class="bg-brand-dark-bg font-inter text-white antialiased">
+    <div id="splash-screen-container" class="flex flex-col items-center justify-center h-[840px] w-full max-w-[375px] mx-auto relative overflow-hidden">
+        
+        <video id="background-video" autoplay loop muted playsinline>
+            <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+        </video>
+        
+        <div class="video-overlay"></div>
+        
+        <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/10 via-transparent to-purple-500/10"></div>
+        
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-brand-accent/20 rounded-full blur-3xl animate-pulse-ring"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl animate-pulse-ring" style="animation-delay: 1s;"></div>
+        
+        <div id="splash-content" class="relative z-10 flex flex-col items-center justify-center px-8">
+            
+            <div class="mb-12 animate-float">
+                <div class="relative w-32 h-32 mx-auto">
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/40 to-purple-500/40 rounded-full animate-pulse-ring"></div>
+                    <div class="absolute inset-4 bg-gradient-to-br from-brand-accent/60 to-purple-500/60 rounded-full animate-pulse-ring" style="animation-delay: 0.5s;"></div>
+                    <div class="absolute inset-8 bg-gradient-to-br from-brand-accent to-purple-500 rounded-full flex items-center justify-center shadow-2xl">
+                        <i class="fa-solid fa-spinner fa-spin text-white text-4xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-white mb-4 tracking-tight drop-shadow-lg">Processing Payment</h1>
+                <p class="text-base text-gray-300 leading-relaxed drop-shadow-md">Please wait a moment...</p>
+            </div>
+
+            <div class="flex gap-2 mb-12">
+                <div class="w-2 h-2 bg-brand-primary rounded-full animate-bounce"></div>
+                <div class="w-2 h-2 bg-brand-primary rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+                <div class="w-2 h-2 bg-brand-primary rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
+            </div>
+
+            <div class="w-full max-w-xs">
+                <div class="h-1 bg-gray-800/80 rounded-full overflow-hidden backdrop-blur-sm">
+                    <div class="h-full bg-gradient-to-r from-brand-accent to-purple-500 rounded-full animate-glow" style="width: 60%;"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="splash-footer" class="absolute bottom-12 left-0 right-0 px-8 z-10">
+            <div class="text-center">
+                <div class="flex items-center justify-center gap-3 mb-3">
+                    <i class="fa-solid fa-shield-halved text-brand-primary text-sm drop-shadow-lg"></i>
+                    <p class="text-xs text-gray-300 drop-shadow-md">Secure Payment Processing</p>
+                </div>
+                <p class="text-[10px] text-gray-400 drop-shadow-md">
+                    Do not close or refresh this page
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        window.addEventListener('load', function() {
+            const video = document.getElementById('background-video');
+            if (video) {
+                video.playbackRate = 0.75;
+            }
+        });
+    </script>
+</body>
+</html>
